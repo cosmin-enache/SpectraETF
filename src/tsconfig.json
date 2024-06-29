@@ -1,31 +1,30 @@
 {
   "compilerOptions": {
-    "target": "ES2020",
-    "module": "commonjs",
-    "lib": [
-      "es2020",
-      "dom"
-    ],
-    "declaration": true,
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "noImplicitThis": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": false,
-    "noUnusedParameters": false,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": false,
-    "inlineSourceMap": true,
-    "inlineSources": true,
-    "experimentalDecorators": true,
-    "strictPropertyInitialization": false,
-    "typeRoots": [
-      "./node_modules/@types"
-    ]
+    "target": "ES2020",                           // Modern ECMAScript target
+    "module": "commonjs",                         // Use CommonJS module system
+    "lib": ["ES2020"],                            // Include standard library files
+    "strict": true,                               // Enable all strict type-checking options
+    "noImplicitAny": true,                        // Raise error on expressions and declarations with an implied 'any' type
+    "strictNullChecks": true,                     // Ensure strict checking of null/undefined values
+    "strictFunctionTypes": true,                  // Ensure strict checking of function types
+    "strictBindCallApply": true,                  // Ensure strict 'bind', 'call', and 'apply' methods on functions
+    "strictPropertyInitialization": true,         // Ensure class properties are initialized in the constructor
+    "noImplicitThis": true,                       // Raise error on 'this' expressions with an implied 'any' type
+    "alwaysStrict": true,                         // Parse in strict mode and emit "use strict" for each source file
+    "noUnusedLocals": true,                       // Raise error on unused local variables
+    "noUnusedParameters": true,                   // Raise error on unused parameters
+    "noImplicitReturns": true,                    // Ensure all code paths in a function return a value
+    "noFallthroughCasesInSwitch": true,           // Raise error for fallthrough cases in switch statements
+    "esModuleInterop": true,                      // Enable compatibility with CommonJS and ES Modules
+    "forceConsistentCasingInFileNames": true,     // Ensure that file names are case-consistently referenced
+    "skipLibCheck": true,                         // Skip type checking of declaration files
+    "moduleResolution": "node",                   // Resolve module using Node.js-style resolution
+    "resolveJsonModule": true,                    // Include modules imported with .json extension
+    "allowSyntheticDefaultImports": true,         // Allow default imports from modules with no default export
+    "typeRoots": ["./node_modules/@types", "./types"]  // Specify multiple root folders for type definitions
   },
   "exclude": [
-    "node_modules",
-    "cdk.out"
+    "node_modules",                               // Exclude 'node_modules' directory
+    "dist"                                        // Exclude 'dist' directory
   ]
 }
