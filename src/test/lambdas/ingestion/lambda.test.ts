@@ -1,5 +1,5 @@
 import { handler } from "../../../lib/lambdas/ingestion/lambda";
-import {APIGatewayProxyEvent, Context} from "aws-lambda";
+import {APIGatewayProxyEvent} from "aws-lambda";
 
 const MOCK_VALID_OBJECT = {
     token: "as719827dfa7ty38835",
@@ -17,8 +17,8 @@ const MOCK_VALID_OBJECT = {
 describe("Ingestion Lambda test suite", () => {
     it("When Ingestion Lambda receives expected input, validate according to schema, then return 200 OK", async () => {
         const result = await handler({
-            body: JSON.stringify(MOCK_VALID_OBJECT)
-        } as APIGatewayProxyEvent, {} as Context);
+            body: MOCK_VALID_OBJECT as any
+        } as APIGatewayProxyEvent);
 
         expect(result.body).toMatch(JSON.stringify({
             message: 'Ingestion Success!'
@@ -26,14 +26,14 @@ describe("Ingestion Lambda test suite", () => {
     });
 
     it("When Ingestion Lambda receives no body in request, expect to throw", async () => {
-        await expect(handler({} as APIGatewayProxyEvent, {} as Context))
+        await expect(handler({} as APIGatewayProxyEvent))
             .rejects
             .toThrowError("Request doesn't contain any data!")
     });
 
     it("When Ingestion Lambda receives a request body, but the data is invalid, expect to throw", async () => {
-        await expect(handler({ body: {} } as APIGatewayProxyEvent, {} as Context))
+        await expect(handler({ body: {} as any } as APIGatewayProxyEvent))
             .rejects
-            .toThrow();
+            .toThrowError("Data is invalid!");
     });
 });
