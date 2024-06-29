@@ -1,10 +1,27 @@
 import { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from 'aws-lambda';
+import Ajv from "ajv";
+
+class HTTPError extends Error {
+    constructor(
+        readonly message: string,
+        readonly statusCode: 400 | 500
+    ) {
+        super(message);
+    }
+}
 
 // Handler function
 export const handler = async (event: APIGatewayProxyEvent, context: Context): Promise<APIGatewayProxyResult> => {
-    // Log the received event and context for debugging purposes
-    console.log('Event:', JSON.stringify(event, null, 2));
-    console.log('Context:', JSON.stringify(context, null, 2));
+    context
+
+    if (event.body === null || event.body === undefined)
+        throw new HTTPError("Request doesn't contain any data!", 400)
+
+    const data = JSON.parse(event.body);
+    const dataSchema = require('./object-schema.json');
+    const ajv = new Ajv();
+
+    ajv.validate(dataSchema, data);
 
     return {
         statusCode: 200,
@@ -12,8 +29,7 @@ export const handler = async (event: APIGatewayProxyEvent, context: Context): Pr
             'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-            message: 'Hello, world!',
-            input: event,
+            message: 'Ingestion Success!'
         }),
     };
 };

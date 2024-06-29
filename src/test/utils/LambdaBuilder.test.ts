@@ -1,7 +1,7 @@
 import { getLambdasFolderAbsolutePath } from "../../lib";
 import { Code, Function, FunctionProps } from "aws-cdk-lib/aws-lambda";
 import { App } from "aws-cdk-lib";
-import FakeStack from "../../lib/utils/FakeStack";
+import FakeStack from "../../lib/testUtils/FakeStack";
 import SpyInstance = jest.SpyInstance;
 import LambdaBuilder from "../../lib/utils/LambdaBuilder";
 

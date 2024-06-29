@@ -1,0 +1,44 @@
+{
+  "type": "object",
+  "properties": {
+    "token": {
+      "type": "string"
+    },
+    "openPositions": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "etfAlias": {
+              "type": "string"
+            },
+            "etfFullName": {
+              "type": "string"
+            },
+            "positionType": {
+              "type": "string"
+            },
+            "Volume": {
+              "type": "number"
+            },
+            "openPrice": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "etfAlias",
+            "etfFullName",
+            "positionType",
+            "Volume",
+            "openPrice"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "token",
+    "openPositions"
+  ]
+}
