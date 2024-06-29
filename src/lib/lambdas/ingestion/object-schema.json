@@ -19,7 +19,7 @@
             "positionType": {
               "type": "string"
             },
-            "Volume": {
+            "volume": {
               "type": "number"
             },
             "openPrice": {
@@ -30,7 +30,7 @@
             "etfAlias",
             "etfFullName",
             "positionType",
-            "Volume",
+            "volume",
             "openPrice"
           ]
         }

@@ -8,7 +8,7 @@ const MOCK_VALID_OBJECT = {
             etfAlias: "IS3N.DE",
             etfFullName: "iShares Core MSCI",
             positionType: "BUY",
-            Volume: 2.1,
+            volume: 2.1,
             openPrice: 30.215,
         }
     ]
