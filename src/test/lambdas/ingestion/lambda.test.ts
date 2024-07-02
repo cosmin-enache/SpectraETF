@@ -10,6 +10,7 @@ const MOCK_VALID_OBJECT = {
             openDateTime: "BUY",
             volume: 2.1,
             openPrice: 30.215,
+            orderId: '1367872277'
         }
     ]
 };

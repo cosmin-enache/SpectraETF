@@ -24,6 +24,9 @@
             },
             "openPrice": {
               "type": "number"
+            },
+            "orderId": {
+              "type": "string"
             }
           },
           "required": [
@@ -31,7 +34,8 @@
             "etfFullName",
             "openDateTime",
             "volume",
-            "openPrice"
+            "openPrice",
+            "orderId"
           ]
         }
       ]
