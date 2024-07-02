@@ -23,6 +23,7 @@ describe("SpectraETFServiceStack test suite", () => {
             "Description": "This is our ingestion lambda",
         });
 
+
         expect(stack.account).toBe(Constants.AWS_ACCOUNT_ID);
         expect(stack.region).toBe(Constants.AWS_REGION);
     });

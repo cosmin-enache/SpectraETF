@@ -16,7 +16,7 @@
             "etfFullName": {
               "type": "string"
             },
-            "positionType": {
+            "openDateTime": {
               "type": "string"
             },
             "volume": {
@@ -29,7 +29,7 @@
           "required": [
             "etfAlias",
             "etfFullName",
-            "positionType",
+            "openDateTime",
             "volume",
             "openPrice"
           ]
