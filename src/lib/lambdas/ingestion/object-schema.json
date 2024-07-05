@@ -1,13 +1,10 @@
 {
   "type": "object",
-  "properties": {
-    "token": {
-      "type": "string"
-    },
-    "openPositions": {
-      "type": "array",
-      "items": [
-        {
+  "patternProperties": {
+    "[A-Za-z0-9]+": {
+      "type": "object",
+      "patternProperties": {
+        "[0-9]+": {
           "type": "object",
           "properties": {
             "etfAlias": {
@@ -24,9 +21,6 @@
             },
             "openPrice": {
               "type": "number"
-            },
-            "orderId": {
-              "type": "string"
             }
           },
           "required": [
@@ -34,15 +28,14 @@
             "etfFullName",
             "openDateTime",
             "volume",
-            "openPrice",
-            "orderId"
-          ]
+            "openPrice"
+          ],
+          "additionalProperties": false
         }
-      ]
+      },
+      "additionalProperties": false
     }
   },
-  "required": [
-    "token",
-    "openPositions"
-  ]
+  "additionalProperties": false,
+  "minProperties": 1
 }

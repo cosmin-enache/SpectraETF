@@ -2,18 +2,31 @@ import { handler } from "../../../lib/lambdas/ingestion/lambda";
 import {APIGatewayProxyEvent} from "aws-lambda";
 
 const MOCK_VALID_OBJECT = {
-    token: "as719827dfa7ty38835",
-    openPositions: [
-        {
+    f3ec13d9506d9cc32cdfab2becf36a216d2b2b35c7324c7a9bd44bea51b3a83: {
+        891382446: {
+            etfAlias: "EUNL.DE",
+            etfFullName: "ishares core msci world ucits (acc eur)",
+            openDateTime: "2023-03-03T13:12:45Z",
+            volume: 1,
+            openPrice: 72.704
+        },
+        891385174: {
             etfAlias: "IS3N.DE",
-            etfFullName: "iShares Core MSCI",
-            openDateTime: "BUY",
-            volume: 2.1,
-            openPrice: 30.215,
-            orderId: '1367872277'
+            etfFullName: "ishares core msci em imi ucits (acc eur)",
+            openDateTime: "2023-03-03T13:15:59Z",
+            volume: 1,
+            openPrice: 27.950
+        },
+        918364384: {
+            etfAlias: "EUNL.DE",
+            etfFullName: "ishares core msci world ucits (acc eur)",
+            openDateTime: "2023-03-27T15:44:24Z",
+            volume: 1,
+            openPrice: 71.070
         }
-    ]
-};
+    }
+}
+
 
 describe("Ingestion Lambda test suite", () => {
     it("When Ingestion Lambda receives expected input, validate according to schema, then return 200 OK", async () => {
