@@ -18,7 +18,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     if (event.body === null || event.body === undefined)
         throw new HTTPError("Request doesn't contain any data!", 400)
 
-    const data: object = event.body as any; // We're actually passed an object here, not a string
+    const data = JSON.parse(event.body); // We're actually passed an object here, not a string
     const dataSchema = require('./object-schema.json');
     const ajv = new Ajv();
 
@@ -36,6 +36,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
         statusCode: 200,
         headers: {
             'Content-Type': 'application/json',
+            'Access-Control-Allow-Origin': 'https://xstation5.xtb.com'
         },
         body: JSON.stringify({
             message: 'Ingestion Success!'

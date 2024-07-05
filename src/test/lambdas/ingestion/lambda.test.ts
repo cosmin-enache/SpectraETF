@@ -31,7 +31,7 @@ const MOCK_VALID_OBJECT = {
 describe("Ingestion Lambda test suite", () => {
     it("When Ingestion Lambda receives expected input, validate according to schema, then return 200 OK", async () => {
         const result = await handler({
-            body: MOCK_VALID_OBJECT as any
+            body: JSON.stringify(MOCK_VALID_OBJECT)
         } as APIGatewayProxyEvent);
 
         expect(result.body).toMatch(JSON.stringify({
@@ -45,8 +45,14 @@ describe("Ingestion Lambda test suite", () => {
             .toThrowError("Request doesn't contain any data!")
     });
 
+    it("When Ingestion Lambda receives a request body, but the data is empty, expect to throw", async () => {
+        await expect(handler({ body: JSON.stringify({}) as any } as APIGatewayProxyEvent))
+            .rejects
+            .toThrowError("Data is invalid!");
+    });
+
     it("When Ingestion Lambda receives a request body, but the data is invalid, expect to throw", async () => {
-        await expect(handler({ body: {} as any } as APIGatewayProxyEvent))
+        await expect(handler({ body: JSON.stringify({"mockKey": 125}) as any } as APIGatewayProxyEvent))
             .rejects
             .toThrowError("Data is invalid!");
     });
