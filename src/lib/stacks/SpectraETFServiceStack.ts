@@ -1,7 +1,17 @@
 import * as cdk from 'aws-cdk-lib';
-import { Construct } from 'constructs';
-import { Constants, LambdaBuilder } from "../utils";
-import {aws_apigateway} from "aws-cdk-lib";
+import {aws_apigateway, aws_ec2} from 'aws-cdk-lib';
+import {Construct} from 'constructs';
+import {Constants, LambdaBuilder} from "../utils";
+import {
+  InstanceClass,
+  InstanceSize,
+  InstanceType,
+  MachineImage,
+  Peer,
+  Port,
+  SecurityGroup,
+  Vpc
+} from "aws-cdk-lib/aws-ec2";
 
 class SpectraETFServiceStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -17,6 +27,26 @@ class SpectraETFServiceStack extends cdk.Stack {
       defaultCorsPreflightOptions: {
         allowOrigins: ['https://xstation5.xtb.com'],
       }
+    });
+
+    const defaultVpc = Vpc.fromLookup(this, 'DefaultVPC', {
+      vpcId: 'vpc-0a2b413018997c8ac',
+    });
+
+    const sshSecurityGroup = new SecurityGroup(this, 'SSHSecurityGroup', {
+      vpc: defaultVpc,
+      allowAllOutbound: true,
+    });
+
+    sshSecurityGroup.addIngressRule(Peer.anyIpv4(), Port.SSH, 'Allow SSH access from anywhere');
+
+    new aws_ec2.Instance(this, 'UITestInstance', {
+      instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
+      vpc: defaultVpc,
+      securityGroup: sshSecurityGroup,
+      machineImage: MachineImage.lookup({
+        name: ''
+      })
     });
   }
 }

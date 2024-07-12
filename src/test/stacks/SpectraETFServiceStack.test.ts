@@ -23,6 +23,29 @@ describe("SpectraETFServiceStack test suite", () => {
             "Description": "This is our ingestion lambda",
         });
 
+        template.hasResourceProperties("AWS::ApiGateway::RestApi", {});
+
+        template.hasResourceProperties("AWS::EC2::SecurityGroup", {
+            "SecurityGroupEgress": [
+                {
+                    "CidrIp": "0.0.0.0/0",
+                    "Description": "Allow all outbound traffic by default",
+                }
+            ],
+            "SecurityGroupIngress": [
+                {
+                    "CidrIp": "0.0.0.0/0",
+                    "Description": "Allow SSH access from anywhere",
+                    "FromPort": 22,
+                    "IpProtocol": "tcp",
+                    "ToPort": 22
+                }
+            ]
+        });
+
+        template.hasResourceProperties("AWS::EC2::Instance", {
+            "InstanceType": "t3.micro"
+        })
 
         expect(stack.account).toBe(Constants.AWS_ACCOUNT_ID);
         expect(stack.region).toBe(Constants.AWS_REGION);
