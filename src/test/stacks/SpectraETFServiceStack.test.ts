@@ -45,7 +45,11 @@ describe("SpectraETFServiceStack test suite", () => {
 
         template.hasResourceProperties("AWS::EC2::Instance", {
             "InstanceType": "t3.micro"
-        })
+        });
+
+        template.hasResourceProperties("AWS::SNS::Topic", {
+            "TopicName": "SpectraUITestFailedTopic"
+        });
 
         expect(stack.account).toBe(Constants.AWS_ACCOUNT_ID);
         expect(stack.region).toBe(Constants.AWS_REGION);

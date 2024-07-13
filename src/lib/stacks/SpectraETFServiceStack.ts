@@ -1,5 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
-import {aws_apigateway, aws_ec2} from 'aws-cdk-lib';
+import {aws_apigateway, aws_ec2, aws_sns} from 'aws-cdk-lib';
 import {Construct} from 'constructs';
 import {Constants, LambdaBuilder} from "../utils";
 import {
@@ -44,9 +44,11 @@ class SpectraETFServiceStack extends cdk.Stack {
       instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
       vpc: defaultVpc,
       securityGroup: sshSecurityGroup,
-      machineImage: MachineImage.lookup({
-        name: ''
-      })
+      machineImage: MachineImage.latestAmazonLinux2023()
+    });
+
+    new aws_sns.Topic(this, 'UITestFailedTopic', {
+      topicName: 'SpectraUITestFailedTopic'
     });
   }
 }
