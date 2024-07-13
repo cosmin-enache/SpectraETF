@@ -1,17 +1,8 @@
 import * as cdk from 'aws-cdk-lib';
-import {aws_apigateway, aws_ec2, aws_sns} from 'aws-cdk-lib';
+import {aws_apigateway, aws_sns} from 'aws-cdk-lib';
 import {Construct} from 'constructs';
 import {Constants, LambdaBuilder} from "../utils";
-import {
-  InstanceClass,
-  InstanceSize,
-  InstanceType,
-  MachineImage,
-  Peer,
-  Port,
-  SecurityGroup,
-  Vpc
-} from "aws-cdk-lib/aws-ec2";
+import {EmailSubscription} from "aws-cdk-lib/aws-sns-subscriptions";
 
 class SpectraETFServiceStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: cdk.StackProps) {
@@ -29,27 +20,18 @@ class SpectraETFServiceStack extends cdk.Stack {
       }
     });
 
-    const defaultVpc = Vpc.fromLookup(this, 'DefaultVPC', {
-      vpcId: 'vpc-0a2b413018997c8ac',
-    });
-
-    const sshSecurityGroup = new SecurityGroup(this, 'SSHSecurityGroup', {
-      vpc: defaultVpc,
-      allowAllOutbound: true,
-    });
-
-    sshSecurityGroup.addIngressRule(Peer.anyIpv4(), Port.SSH, 'Allow SSH access from anywhere');
-
-    new aws_ec2.Instance(this, 'UITestInstance', {
-      instanceType: InstanceType.of(InstanceClass.T3, InstanceSize.MICRO),
-      vpc: defaultVpc,
-      securityGroup: sshSecurityGroup,
-      machineImage: MachineImage.latestAmazonLinux2023()
-    });
-
-    new aws_sns.Topic(this, 'UITestFailedTopic', {
+    const uiTestFailedTopic = new aws_sns.Topic(this, 'UITestFailedTopic', {
+      // This needs to remain STATIC for the mail SDK on the UI Test server to work
       topicName: 'SpectraUITestFailedTopic'
-    });
+    })
+
+    uiTestFailedTopic.addSubscription(
+        new EmailSubscription("cosminache96@gmail.com")
+    );
+
+    uiTestFailedTopic.addSubscription(
+        new EmailSubscription("alexenache590@gmail.com")
+    );
   }
 }
 

@@ -25,28 +25,6 @@ describe("SpectraETFServiceStack test suite", () => {
 
         template.hasResourceProperties("AWS::ApiGateway::RestApi", {});
 
-        template.hasResourceProperties("AWS::EC2::SecurityGroup", {
-            "SecurityGroupEgress": [
-                {
-                    "CidrIp": "0.0.0.0/0",
-                    "Description": "Allow all outbound traffic by default",
-                }
-            ],
-            "SecurityGroupIngress": [
-                {
-                    "CidrIp": "0.0.0.0/0",
-                    "Description": "Allow SSH access from anywhere",
-                    "FromPort": 22,
-                    "IpProtocol": "tcp",
-                    "ToPort": 22
-                }
-            ]
-        });
-
-        template.hasResourceProperties("AWS::EC2::Instance", {
-            "InstanceType": "t3.micro"
-        });
-
         template.hasResourceProperties("AWS::SNS::Topic", {
             "TopicName": "SpectraUITestFailedTopic"
         });
