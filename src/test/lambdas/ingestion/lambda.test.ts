@@ -8,21 +8,24 @@ const MOCK_VALID_OBJECT = {
             etfFullName: "ishares core msci world ucits (acc eur)",
             openDateTime: "2023-03-03T13:12:45Z",
             volume: 1,
-            openPrice: 72.704
+            openPrice: 72.704,
+            type: "buy"
         },
         891385174: {
             etfAlias: "IS3N.DE",
             etfFullName: "ishares core msci em imi ucits (acc eur)",
             openDateTime: "2023-03-03T13:15:59Z",
             volume: 1,
-            openPrice: 27.950
+            openPrice: 27.950,
+            type: "sell"
         },
         918364384: {
             etfAlias: "EUNL.DE",
             etfFullName: "ishares core msci world ucits (acc eur)",
             openDateTime: "2023-03-27T15:44:24Z",
             volume: 1,
-            openPrice: 71.070
+            openPrice: 71.070,
+            type: "buy"
         }
     }
 }

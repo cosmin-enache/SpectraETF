@@ -21,6 +21,9 @@
             },
             "openPrice": {
               "type": "number"
+            },
+            "type": {
+              "type": "string"
             }
           },
           "required": [
